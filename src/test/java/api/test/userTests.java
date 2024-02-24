@@ -8,16 +8,19 @@ import com.github.javafaker.Faker;
 
 import api.endpoints.Userendpoints;
 import api.payload.User;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 
 public class userTests {
-	User upay;
+	User upay;  
 	Faker faker;
 
 	@BeforeClass
 	public void setupData() {
 
-		faker = new Faker();
+		faker = new Faker(); 
 		upay = new User();
 		upay.setId(faker.idNumber().hashCode());
 		upay.setUsername(faker.name().username());
@@ -33,9 +36,20 @@ public class userTests {
 	public void testPostUser() throws Exception {
 
 		Response res = Userendpoints.createUser(upay);
-		res.then().log().all();
+		
 
 		Assert.assertEquals(res.getStatusCode(), 200);
+		res.then().log().all();
+		Headers header=res.headers();
+		for(Header oneByOne:header) {
+			
+			System.out.println("HeaderName :"+oneByOne.getName()+"HeaderValue"+oneByOne.getValue());
+			
+			
+		}
+		//res.then().assertThat()
+		//.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("coverterd schema at project folder"));*/
+		
 
 	}
 
@@ -46,6 +60,7 @@ public class userTests {
 		respo.then().log().all();
 
 	}
+	
 
 	@Test(priority = 3)
 	public void testupdateUser() {

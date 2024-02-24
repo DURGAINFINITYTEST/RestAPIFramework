@@ -12,7 +12,7 @@ public class DDtests {
 
 	@Test(priority = 1, dataProvider = "Data", dataProviderClass = DataProviders.class)
 	public void testPostUser(String userID, String userName, String fname, String lname, String email, String pass,
-			String ph) {
+			String ph) throws Exception {
 
 		User use = new User();
 		use.setId(Integer.parseInt(userID));

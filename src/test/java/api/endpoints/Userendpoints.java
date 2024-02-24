@@ -34,6 +34,21 @@ public class Userendpoints {
 		return resCreate;
 
 	}
+public static Response getUser(String username) {
+		
+		String getUrl = prop.getProperty("get_URL");
+		Response resGet = given()
+				       .pathParam("username", username)
+
+				//.when().get(Routes.get_URL);
+				.when()
+				.get(getUrl);
+				
+
+		return resGet;
+
+	}
+
 
 	public static Response updateUser(User payload, String userName) {
 		
@@ -53,25 +68,14 @@ public class Userendpoints {
 		
 		String deleteUrl = prop.getProperty("delete_URL");
 
-		Response resGet = given().pathParam("username", userName)
+		Response resGet = given()
+				.pathParam("username", userName)
 
-				.when().delete(Routes.delete_URL);
-
-		return resGet;
-
-	}
-
-	public static Response getUser(String username) {
-		
-		String getUrl = prop.getProperty("get_URL");
-		Response resGet = given().pathParam("username", username)
-
-				//.when().get(Routes.get_URL);
-				.when().get(getUrl);
-				
+				.when().delete(Routes.delete_URL); 
 
 		return resGet;
 
 	}
 
+	
 }
